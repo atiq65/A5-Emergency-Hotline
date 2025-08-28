@@ -22,9 +22,9 @@ callAllButtons.forEach((btn) => {
     const serviceCard = btn.closest(".card");
     const serviceName = serviceCard.querySelector(".card-title").innerText;
     const serviceNumber = serviceCard.querySelector("span.font-bold").innerText;
-    //chech the coins
+    //change the coins
     if (coins < 20) {
-      alert("you do not have enough coins to make a call");
+      alert("You do not have enough coins to make a call");
       return;
     }
     //alert show on screen
@@ -67,4 +67,25 @@ callAllButtons.forEach((btn) => {
 clearBtn.addEventListener("click", () => {
   const addHistoryItems = callHistory.querySelectorAll("div.mt-3");
   addHistoryItems.forEach((item) => item.remove());
+});
+
+//copy count button
+const copyCountButton = document.querySelector("nav button");
+let copyCount = 0;
+// copy btn
+const copyButtons = document.querySelectorAll(
+  ".card-actions button:first-child"
+);
+copyButtons.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    const card = btn.closest(".card");
+    const hotLineNumbers = card.querySelector("div h2 span").innerText;
+    // click on copy
+    navigator.clipboard.writeText(hotLineNumbers).then(() => {
+      alert(`Hotline number ${hotLineNumbers} copied!`);
+      // how to copy count increase
+      copyCount++;
+      copyCountButton.innerText = `${copyCount} copy`;
+    });
+  });
 });
